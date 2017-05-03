@@ -13,8 +13,15 @@ void draw() {
   background(0);
   stroke(255);
   
-  for (int i = 0; i <= 5; i++) {
-    int v = (int)random(256);
+  int N = 6; // values.length;
+  int[] values = new int[N]; 
+  
+  for (int i = 0; i < N; i++) {
+    values[i] = (int)random(256);
+  }
+  
+  for (int i = 0; i < N; i++) {
+    int v = values[i];
     
     int x = i / 2;
     int y = i % 2;
