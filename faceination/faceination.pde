@@ -2,11 +2,15 @@ import processing.serial.*;
 
 int w = 100;
 int h = 100;
+int m = 2;
+int n = 3;
+
 int border = 10;
 
 void setup() {
-  //size(2 * w + 3 * border, 2 * h + 3 * border);
-  size(340, 230);
+  size(400, 400);
+  surface.setResizable(true);
+  surface.setSize(n * h + (n+1) * border, m * w + (m+1) * border);
 }
 
 void draw() {
