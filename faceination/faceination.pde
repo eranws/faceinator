@@ -67,7 +67,20 @@ void draw() {
 }
 
 void keyPressed() {
-  readData();
+  switch(key){
+    case 'f':  // make face
+    values[0] = 0;
+    values[1] = 100;
+    values[2] = 200;
+    values[3] = 250;
+    values[4] = 0;
+    values[5] = 100;
+    
+    break;  
+    
+    default: 
+    readData();
+  }
 }
 
 void readData() {
