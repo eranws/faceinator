@@ -7,7 +7,7 @@ author:
 
 ########
 # more settings
-
+baseurl: /faceinator
 markdown: kramdown
 
 sass:
