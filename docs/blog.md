@@ -2,11 +2,12 @@
 layout: default
 title: Blog
 ---
-
+# Blog
 
 {% for post in site.posts %}
 
 <article class='post'>
+  <hr/>
   <h1 class='post-title'>
     <a href="{{ site.path }}{{ post.url }}">
       {{ post.title }}
