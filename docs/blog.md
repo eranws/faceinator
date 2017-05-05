@@ -9,7 +9,7 @@ title: Blog
 <article class='post'>
   <hr/>
   <h1 class='post-title'>
-    <a href="{{ site.path }}{{ post.url }}">
+    <a href="{{ site.url }}{{ post.url }}">
       {{ post.title }}
     </a>
   </h1>
