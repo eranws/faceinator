@@ -1,6 +1,11 @@
 ---
 layout: default
-title: Fascinator
+title: Faceinator
 ---
 
-## What's `faceinator`?
+# Faceinator
+an analog, photodiode based face detector  
+### by Amos Golan and Eran Weissenstern
+
+Final project [proposal](/proposal) for Sensor technologies for interactive environments 
+
