@@ -9,13 +9,13 @@ class CameraDevice implements InputDevice {
 
   int surfaceWidth = 640;
   int surfaceHeight = 480;
-  
+
   int w = 100;
   int h = 100;
 
   int m = 2;
   int n = 3;
-  
+
   void setup(PApplet pApplet) {
     cam = new Capture(pApplet, surfaceWidth, surfaceHeight);
     cam.start();
@@ -29,6 +29,16 @@ class CameraDevice implements InputDevice {
     } 
 
     PImage p = cam.copy();
+
+    // flip image
+    for (int i = 0; i < p.height; i++) {
+      for (int j = 0; j < p.width / 2; j++) {
+        int tmp = p.get(j, i);
+        p.set(j, i, p.get(p.width - j, i));
+        p.set(p.width - j, i, tmp);
+      }
+    }
+
     image(p, surfaceWidth, 0); 
 
 
