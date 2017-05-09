@@ -1,7 +1,3 @@
-import processing.serial.*;
-import cc.arduino.*;
-
-Arduino arduino;
 boolean isRunning = true;
 
 int w = 100;
@@ -18,16 +14,41 @@ int sy = m * w + (m+1) * border;
 int N = 6; // values.length;
 int[] values = new int[N]; 
 
-void setup() {
-  size(400, 400);
-  surface.setResizable(true);
-  surface.setSize(sx * 2, sy * 2);
+InputDevice inputDevice;
+int inputIndex = 0;
 
-  // Prints out the available serial ports.
-  println(Arduino.list());
-  // Alternatively, use the name of the serial port corresponding to your
-  // Arduino (in double-quotes), as in the following line.
-  arduino = new Arduino(this, "/dev/tty.usbmodem1421", 57600);
+InputDevice[] inputDeviceList = new InputDevice[3];
+
+void setup() {
+  size(1400, 1400);
+  surface.setResizable(true);
+  //  surface.setSize(sx * 2, sy * 2);
+
+
+  try {
+    inputDeviceList[0] = new MockDevice();
+    inputDeviceList[0].setup(this);
+  }
+  catch (Exception e) {
+  }
+
+  try {
+    inputDeviceList[1] = new CameraDevice();
+    inputDeviceList[1].setup(this);
+  }
+  catch (Exception e) {
+    inputDeviceList[1] = new NullDevice();
+  }
+
+  try {
+    inputDeviceList[2] = new ArduinoDevice();
+    inputDeviceList[2].setup(this);
+  }
+  catch (Exception e) {
+    inputDeviceList[2] = new NullDevice();
+  }
+
+  inputDevice = inputDeviceList[inputIndex];
 
   readData();
 }
@@ -37,6 +58,7 @@ void draw() {
   stroke(255);
 
   if (isRunning) {
+    inputDevice.update();
     readData();
   }
 
@@ -79,16 +101,14 @@ void draw() {
 
 void keyPressed() {
   switch(key) {
-  case 'f':  // make face
-    values[0] = 0;
-    values[1] = 100;
-    values[2] = 200;
-    values[3] = 250;
-    values[4] = 0;
-    values[5] = 100;
+  case ' ':  // cycle input
+    inputIndex++;
+    inputIndex %= inputDeviceList.length;
+    inputDevice = inputDeviceList[inputIndex];
+    isRunning = true;
     break;  
 
-  case ' ': //space
+  case 's': //start/stop
     isRunning = !isRunning;
     break;
 
@@ -99,10 +119,5 @@ void keyPressed() {
 }
 
 void readData() {
-  for (int i = 0; i < N; i++) {
-    // values[i] = (int)random(256);
-    int v = arduino.analogRead(i);
-    // if arduino divide by 4
-    values[i] = v / 4;
-  }
+  values = inputDevice.read();
 }
