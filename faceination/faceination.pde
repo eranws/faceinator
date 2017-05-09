@@ -48,7 +48,7 @@ void draw() {
   translate(sx, 0);
   for (int i = 0; i < m; i++) {
     // draw sums
-    int v = sumM[i] / m;
+    int v = sumM[i] / n;
     fill(v);
     rect(border, border + (border + h) * i, w * n, h);
   }
@@ -58,12 +58,11 @@ void draw() {
   translate(0, sy);
   for (int i = 0; i < n; i++) {
     // draw sums
-    int v = sumN[i] / n;
-    fill (v);
+    int v = sumN[i] / m;
+    fill(v);
     rect(border + (border + w) * i, border, w, h * m);
   }
   popMatrix();
-
 }
 
 void keyPressed() {
