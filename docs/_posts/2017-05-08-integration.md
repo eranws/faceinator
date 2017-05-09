@@ -1,0 +1,11 @@
+---
+layout: post
+title: "Intergration"
+# debugging and testing the 2nd layer
+# added the final stage - and gate of the two tests
+---
+
+The results of each test in the comparator the are now combined into one using two transistors in series, which is connected to a led.
+
+In the video we tweak the potentiometers to test the AND gate 
+(add video)
