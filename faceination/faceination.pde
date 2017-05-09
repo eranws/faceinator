@@ -119,7 +119,7 @@ void draw() {
   pushMatrix();
   translate(sx * 2, 0);
   translate(border, border);
-  int v1 = constrain(sumM[1] / 2 - sumM[0] / 2, 0, 255);
+  int v1 = constrain(sumM[1] / 3 - sumM[0] / 3, 0, 255);
   fill(v1);
   rect(0, 0, w, h * m + border * (m-1));
   fill(0);

@@ -13,11 +13,11 @@ class MockDevice implements InputDevice {
 
   void update() {
     values[0] = 0; 
-    values[1] = 100; 
-    values[2] = 200; 
+    values[1] = 128; 
+    values[2] = 192; 
     values[3] = 250; 
     values[4] = 0; 
-    values[5] = 100;
+    values[5] = 128;
   }
 
   int[] read() {
