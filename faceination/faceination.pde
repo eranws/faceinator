@@ -1,4 +1,8 @@
 import processing.serial.*;
+import cc.arduino.*;
+
+Arduino arduino;
+boolean isRunning = true;
 
 int w = 100;
 int h = 100;
@@ -18,19 +22,27 @@ void setup() {
   size(400, 400);
   surface.setResizable(true);
   surface.setSize(sx * 2, sy * 2);
-  
+
+  // Prints out the available serial ports.
+  println(Arduino.list());
+  // Alternatively, use the name of the serial port corresponding to your
+  // Arduino (in double-quotes), as in the following line.
+  arduino = new Arduino(this, "/dev/tty.usbmodem1421", 57600);
+
   readData();
 }
 
 void draw() {
   background(0);
   stroke(255);
-  
-  // readData();
+
+  if (isRunning) {
+    readData();
+  }
 
   int[] sumM = new int [m];
   int[] sumN = new int [n];
-  
+
   for (int i = 0; i < N; i++) {
     int v = values[i];
 
@@ -66,25 +78,31 @@ void draw() {
 }
 
 void keyPressed() {
-  switch(key){
-    case 'f':  // make face
+  switch(key) {
+  case 'f':  // make face
     values[0] = 0;
     values[1] = 100;
     values[2] = 200;
     values[3] = 250;
     values[4] = 0;
     values[5] = 100;
-    
     break;  
-    
-    default: 
+
+  case ' ': //space
+    isRunning = !isRunning;
+    break;
+
+  default: 
     readData();
+    break;
   }
 }
 
 void readData() {
   for (int i = 0; i < N; i++) {
-    values[i] = (int)random(256);
+    // values[i] = (int)random(256);
+    int v = arduino.analogRead(i);
     // if arduino divide by 4
-  }  
+    values[i] = v / 4;
+  }
 }
