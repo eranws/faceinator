@@ -75,12 +75,7 @@ void draw() {
     sumM[y] += v;
     sumN[x] += v;
 
-    fill (v); // input is 0-1023
-    rect(border + (border + w) * x, border + (border + h) * y, w, h);
-    fill(0);
-    text(v, border + (border + w) * x, border + (border + h) * y);
-    fill(255);
-    text(v, 1+border + (border + w) * x, 1+border + (border + h) * y);
+    drawRect(v, border + (border + w) * x, border + (border + h) * y, w, h);
   }
 
   pushMatrix();
@@ -89,12 +84,7 @@ void draw() {
   for (int i = 0; i < m; i++) {
     // draw sums
     int v = sumM[i] / n;
-    fill(v);
-    rect(0, 0, w * n, h);
-    fill(0);
-    text(v, 0, 0);
-    fill(255);
-    text(v, 1, 1);
+    drawRect(v, 0, 0, w * n, h);
     translate(0, border + h);
   }
   popMatrix();
@@ -105,12 +95,7 @@ void draw() {
   for (int i = 0; i < n; i++) {
     // draw sums  
     int v = sumN[i] / m;
-    fill(v);
-    rect(0, 0, w, h * m);
-    fill(0);
-    text(v, 0, 0);
-    fill(255);
-    text(v, 1, 1);
+    drawRect(v, 0, 0, w, h * m);
     translate(border + w, 0);
   }
   popMatrix();
@@ -120,26 +105,15 @@ void draw() {
   translate(sx * 2, 0);
   translate(border, border);
   int v1 = constrain(sumM[1] / 3 - sumM[0] / 3, 0, 255);
-  fill(v1);
-  rect(0, 0, w, h * m + border * (m-1));
-  fill(0);
-  text(v1, 0, 0);
-  fill(255);
-  text(v1, 1, 1);
+  drawRect(v1, 0, 0, w, h * m + border * (m-1));
   popMatrix();
 
   pushMatrix();
   translate(0, sy * 2);
   translate(border, border);
   int v2 = constrain(sumN[1] / 2 - (sumN[0] + sumN[2]) / 4, 0, 255);
-  fill(v2);
-  rect(0, 0, w * n + border * (n-1), h);
-  fill(0);
-  text(v2, 0, 0);
-  fill(255);
-  text(v2, 1, 1);
+  drawRect(v2, 0, 0, w * n + border * (n-1), h);
   popMatrix();
-
 }
 
 void keyPressed() {
@@ -163,4 +137,13 @@ void keyPressed() {
 
 void readData() {
   values = inputDevice.read();
+}
+
+void drawRect(int v, int x, int y, int w, int h) {
+  fill (v); // input is 0-1023
+  rect(x, y, w, h);
+  fill(0);
+  text(v, x, y);
+  fill(255);
+  text(v, x+1, y+1);
 }
