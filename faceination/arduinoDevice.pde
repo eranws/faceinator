@@ -6,7 +6,10 @@ class ArduinoDevice implements InputDevice {
 
   int N = 6;
   int[] values = new int[N]; 
-
+  
+  
+  boolean reversePins = true;
+  
   void setup(PApplet pApplet) throws IOException {
     // Prints out the available serial ports.
     println(Arduino.list());
@@ -18,8 +21,13 @@ class ArduinoDevice implements InputDevice {
   void update() {
     for (int i = 0; i < N; i++) {
       int v = arduino.analogRead(i);
-      // if arduino divide by 4, imput values are 0-1023
-      values[i] = v / 4;
+      // divide by 4, arduino input values are 0-1023
+      if (reversePins) {
+        values[N - 1 - i] = v / 4;
+      }
+      else {
+        values[i] = v / 4;
+      }
     }
   }
 
