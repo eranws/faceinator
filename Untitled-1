@@ -1,0 +1,28 @@
+model in unity
+
+use 4 sensors, diamond shape
+--0--
+0---0  } h
+--0--
+
+  ^
+  w
+
+
+measure cone opening radius
+depends on depth of pipe
+
+
+only if lower sensor is on, and more than its upper one 
+test 0
+     1
+
+test if upper sensor is more than X (log, linear) than two sides
+test 101
+
+
+The lower sensor used to check presence using directed IR 
+independent of other three, can be low sensitivity.
+In very low frequency, IR functions as heat sensor.
+
+Using capacitive sensing can be applied as well.
